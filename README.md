@@ -1,5 +1,5 @@
 # CatOrDog
-use deep learning to classify the animal in a picture is a cat or a dog
+use deep learning to classify the animal in a picture is a cat or a dog.
 
 # How to deploy
 ## 1. clone this repo 
