@@ -1,21 +1,95 @@
 <!DOCTYPE html>
 <html>
 {% load staticfiles %}
+<head>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/css/uikit.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static "css/docs.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/image-picker.css" %}">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/js/uikit.min.js"></script>
+	<script src="{% static "js/image-picker.min.js" %}"></script>
+
+</head>
 <body>
-<form id="uploadbanner" enctype="multipart/form-data" method="post">
-	{% csrf_token %}
-   <input id="fileupload" name="img" type="file" />
-   <input type="submit" value="submit" id="submit" />
-</form>
-<div>
-	{% if done %}	
-		<p> 您上传的图片分类结果是</p>
-		{% if cls %}
-			<p> 狗(Dog)</p>
-		{% else %}
-			<p> 猫(Cat)</p>
-		{% endif %}
-	{% endif %}
-</div>
+<body class="tm-background">
+	<div class="tm-section tm-section-color-1 tm-section-colored">
+		<div class="uk-container uk-container-center uk-text-center">
+			<h1 class="uk-heading-large ">Cat or Dog</h1>
+			<p class="uk-text-large">
+				Recognize the pet in your image
+			</p>
+		</div>
+
+		<div class="uk-container uk-container-center uk-text-center uk-margin-top-remove">
+			<div class="uk-thumbnail">
+				{% if done %}
+				<img src="{% static "medias/" %}/{{tmp_im_name}}" id="origin_img"  alt="Origin Image" width="500" height="600">
+				{% else %}
+				<img src="{% static "img/blank.jpg" %}" id = "origin_img" alt="Origin Image" width="500" height="600">
+				{% endif %}
+			</div>
+		</div>	
+
+		<div class="uk-container uk-container-center uk-text-center" style="text-align:center;">
+			<form method="post" class="uk-form" enctype="multipart/form-data">
+				{% csrf_token %}
+				<fieldset data-uk-margin>
+					<input type="file" name="img" onchange="readURL(this);">
+					<br clear="uk-hidden-small">
+					<br clear="uk-hidden-small">
+					<button id="btn_go" type="sumbit" disabled="disabled" onclick="cleanResult();" class="uk-button uk-button-center uk-button-large uk-button-success tm-button-download">Run</button>
+				</fieldset>
+			</form>
+		</div>
+
+		<div class="uk-container uk-container-center uk-text-center" style="text-align:center;">
+			{% if done %}
+				{% if cls %}
+					<p class="uk-text-large" id="result1">
+						The pet in the image is a Dog  🐶
+					</p>
+				{% else %}
+					<p class="uk-text-large" id="result2">
+						The pet in the image is a Cat 🐱
+					</p>
+				{% endif %}
+			{% endif %}
+
+		</div>
+		
+		
+		
+	</div>
+	<div class="tm-section tm-section-color-1 tm-section-colored uk-margin-top-remove"></div>
+	<div class="tm-section tm-section-color-1 tm-section-colored"></div>
+	<div class="tm-section tm-section-color-1 tm-section-colored"></div>
+
+	<script type="text/javascript">
+		function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#origin_img')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(input.files[0]);
+			document.getElementById('btn_go').disabled = false;
+            result1 = document.getElementById("result1");
+
+            if (result1 != null) result1.innerHTML="";
+            result2 = document.getElementById("result2");
+            if (result2 != null) result2.innerHTML="";
+        }
+
+        function cleanResult() {
+            document.getElementById("result1").innerHTML="";
+            document.getElementById("result2").innerHTML="";
+        }
+    }
+
+    $("select").imagepicker();
+	</script>
 </body>
 </html>
