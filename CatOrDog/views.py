@@ -16,7 +16,7 @@ def demo(request):
 		img = request.FILES['img']
 		cls = classifer(img)
 		print 'classify result: ', 'dog' if cls else 'cat'
-		render_dict = {'cls': cls}
+		render_dict = {'done': 1, 'cls': cls}
 		return render(request, 'demo.html', render_dict)
 	else:
 		return render(request, 'demo.html')
