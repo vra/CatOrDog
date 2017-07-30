@@ -7,5 +7,15 @@
    <input id="fileupload" name="img" type="file" />
    <input type="submit" value="submit" id="submit" />
 </form>
+<div>
+	{% if done %}	
+		<p> 您上传的图片分类结果是</p>
+		{% if cls %}
+			<p> 狗(Dog)</p>
+		{% else %}
+			<p> 猫(Cat)</p>
+		{% endif %}
+	{% endif %}
+</div>
 </body>
 </html>
