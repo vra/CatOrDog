@@ -11,8 +11,7 @@ git clone https://github.com/vra/CatOrDog.git
 ```bash
 cd CatOrDog
 mkdir models
-cd models
-wget https://github.com/vra/CatOrDog/releases/download/v1.0/vgg16_finetune.h5
+wget https://github.com/vra/CatOrDog/releases/download/v1.0/vgg16_finetune.h5 -o models
 ```
 
 ## 3. Create medias directory

@@ -16,7 +16,7 @@ def demo(request):
 	if request.method == 'POST' and request.FILES['img']:
 		img = request.FILES['img']
 		cls, tmp_im_name = classifer(img)
-		print 'classify result: ', 'dog' if cls else 'cat'
+		print ('classify result: ', 'dog' if cls else 'cat')
 		render_dict = {'done': 1, 'cls': cls, 'tmp_im_name': tmp_im_name}
 		return render(request, 'demo.html', render_dict)
 	else:
@@ -42,7 +42,7 @@ def classifer(img):
 	with graph.as_default():
 		model = load_model(model_path)
 		res = model.predict(img_np, batch_size=1)
-	print 'prob:', res[0,0]
+	print( 'prob:', res[0,0])
 	if res[0,0] < 0.5:
 		cls = 0
 	else:
